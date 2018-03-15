@@ -1,47 +1,24 @@
 import React, { Component } from 'react';
 
-import { getEntriesData, getRoomsData, checkJWT } from '../../services/BackendApi';
+import { getEntriesData, getRoomsData, getRoomAvailability } from '../../services/BackendApi';
 
 export default class EntryList extends Component {
   state = {
     entries: [],
-    rooms: []
+    rooms: [],
+    currententries: []
   }
 
   componentDidMount() {
-    getRoomsData()
-        .then((response) => {
-          this.setState(() => ({
-            rooms: response.data
-          }));
-          getEntriesData()
-            .then((response) => {
-              console.log(this.state.rooms);
-              //TODO Gå igenom response och hitta status för rum (som är lediga) för nuvarande timme
-              var currententries = [];
-              var currentdate = new Date();
-              var currenthour = this.addZero(currentdate.getHours());
-              response.data.forEach(element => {
-                //console.log(this.converttimestamp(element.start_time));
-                if (this.converttimestamp(element.start_time).substring(0,2) <= currenthour && this.converttimestamp(element.end_time).substring(0,2) > currenthour ) {
-                  //console.log('match');
-                  currententries.push(element);
-                }
-              });
-              console.log(currententries);
-              this.setState(() => ({
-                entries: currententries
-              }));
-              var items = response.data
-            })
-            .catch((error) => {
-              this.setState(() => ({ entries: error.response.data}));
-            }); 
-        })
-        .catch((error) => {
-          this.setState(() => ({ rooms: error.response.data}));
-        });
-    
+    getRoomAvailability(9)
+      .then((response) => {
+        this.setState(() => ({
+          currententries: response.data
+        }));
+      })
+      .catch((error) => {
+        this.setState(() => ({ rooms: error.response.data}));
+      });
   }
 
   addZero(i) {
@@ -63,6 +40,22 @@ export default class EntryList extends Component {
   render() {
     return (
       <div className="Smartsign-content-1">
+      { this.state.currententries.map(room => 
+          <div key={room.room_name}>
+            {
+              room.room_number + ". " + room.room_name + ". "  + room.availability
+            }
+          </div>
+          )
+        }
+        { this.state.rooms.map(room => 
+          <div key={room.id}>
+            {
+              room.room_number + ". "  + room.room_name
+            }
+          </div>
+          )
+        }
         { this.state.entries.map(entries => 
           <div key={entries.id}>
             {
