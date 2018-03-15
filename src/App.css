@@ -1,0 +1,56 @@
+.App {
+  text-align: left;
+  background-color: #000;
+  color: white;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #000;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.App-content {
+  background-color: #000;
+  color: #fff;
+}
+
+.Smartsign-header-image {
+
+}
+
+.Smartsign-header-1 {
+  padding-top: 90px;
+}
+
+.Smartsign-header-2 {
+  padding-top: 30px;
+}
+
+.Smartsign-header-3 {
+  padding-top: 50px;
+  padding-left: 15px;
+}
+
+.Smartsign-content-1 {
+  padding-top: 40px;
+  padding-left: 15px;
+  font-size: 3rem;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
