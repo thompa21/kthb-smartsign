@@ -2,6 +2,7 @@
   text-align: left;
   background-color: #000;
   color: white;
+  height: 2100px;
 }
 
 .App-logo {
@@ -28,7 +29,7 @@
 }
 
 .Smartsign-header-image {
-
+  width: 100%;
 }
 
 .Smartsign-header-1 {
@@ -48,6 +49,12 @@
   padding-top: 40px;
   padding-left: 15px;
   font-size: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Smartsign-item {
+  width: 480px;
 }
 
 @keyframes App-logo-spin {

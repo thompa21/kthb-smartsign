@@ -4,30 +4,14 @@ body {
   font-family: sans-serif;
 }
 
-img {
-  width:100%;
-}
-
 h1 {
-  font-size: 5.5rem;
-}
-
-h2 {
-
+  font-size: 88px;
 }
 
 h3 {
-  font-size: 3rem;
-}
-
-h4 {
-
-}
-
-h5 {
-
+  font-size: 48px;
 }
 
 h6 {
- font-size: 2rem; 
+ font-size: 32px; 
 }

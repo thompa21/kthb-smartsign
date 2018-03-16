@@ -6,13 +6,19 @@ import './App.css';
 
 import Entries from './mrbs/entries/Entries';
 
+import { addZero } from './helpers/functions';
+
 class App extends Component {
   render() {
+    var d = new Date();
+    var currenthour = addZero(d.getHours());
+    d.setHours(d.getHours() + 1 );
+    var nextthour = addZero(d.getHours());
     return (
       <div className="App">
         <header className="App-header">
-          <div className="Smartsign-header-image">
-            <img src={kthbhall} className="" alt="logo" />
+          <div>
+            <img className="Smartsign-header-image" src={kthbhall} alt="logo" />
           </div>
           <div className="Smartsign-header-1">
             <h6>VÄLKOMMEN TILL / WELCOME TO</h6>
@@ -22,10 +28,12 @@ class App extends Component {
             <h1>KTH Library</h1>
           </div>
           <div className="Smartsign-header-3">
-            <h3>Grupprum idag</h3>
+            <h3>TEST ({currenthour + " - " + nextthour})</h3>
           </div>
         </header>
-        <Entries></Entries>
+        {
+          <Entries></Entries>
+        }
       </div>
     );
   }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { getEntriesData, getRoomsData, getRoomAvailability } from '../../services/BackendApi';
 
+import { addZero } from '../../helpers/functions';
+
 export default class EntryList extends Component {
   state = {
     entries: [],
@@ -10,22 +12,26 @@ export default class EntryList extends Component {
   }
 
   componentDidMount() {
-    getRoomAvailability(9)
-      .then((response) => {
-        this.setState(() => ({
-          currententries: response.data
-        }));
-      })
-      .catch((error) => {
-        this.setState(() => ({ rooms: error.response.data}));
-      });
+    this.getroomAvailability();
+    setInterval(this.getroomAvailability.bind(this), 10000)
   }
 
-  addZero(i) {
-    if (i < 10) {
-        i = "0" + i;
-    }
-    return i;
+  getroomAvailability() {
+    getRoomAvailability()
+        .then((response) => {
+          //filtrera lediga rum?
+          response.data.slice(0).forEach(element => {
+            if(!element.availability){
+              response.data.splice(response.data.indexOf(element), 1);
+            }
+          });
+          this.setState(() => ({
+            currententries: response.data
+          }));
+        })
+        .catch((error) => {
+          this.setState(() => ({ rooms: error.response.data}));
+        });
   }
 
   converttimestamp(timestamp){
@@ -41,9 +47,9 @@ export default class EntryList extends Component {
     return (
       <div className="Smartsign-content-1">
       { this.state.currententries.map(room => 
-          <div key={room.room_name}>
+          <div className="Smartsign-item"  key={room.room_name}>
             {
-              room.room_number + ". " + room.room_name + ". "  + room.availability
+              room.room_number + ". " + room.room_name
             }
           </div>
           )
