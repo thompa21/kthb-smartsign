@@ -2,7 +2,9 @@
   text-align: left;
   background-color: #000;
   color: white;
+  /* smartsignskärmarnas upplösning */
   height: 2100px;
+  width: 1181px;
 }
 
 .App-logo {
@@ -13,6 +15,7 @@
 .App-header {
   background-color: #000;
   color: white;
+  padding-left: 15px;
 }
 
 .App-title {
@@ -45,16 +48,62 @@
   padding-left: 15px;
 }
 
+#grouproomentries {
+  height: 20%;
+}
+
+.Smartsign-content-wrapper {
+  height: 100%;
+}
+
 .Smartsign-content-1 {
-  padding-top: 40px;
+  padding-top: 10px;
   padding-left: 15px;
-  font-size: 3rem;
-  display: flex;
-  flex-wrap: wrap;
+  font-size: 32px;
+  column-count: 2;
+  column-gap: 0;
+  width: 800px;
+  height: 100%;
 }
 
 .Smartsign-item {
-  width: 480px;
+  width: 320px;
+  margin: 5px 0px;
+  border-radius: 10px;
+  padding: 5px;
+  display: inline-block;
+}
+
+.unavailable {
+  background-color: grey
+}
+
+.confirmed {
+  background-color: rgb(226, 70, 70);
+}
+
+.tobeconfirmed {
+  background-color: rgb(223, 165, 57);
+}
+
+.tentative {
+  background-color: rgb(236, 236, 56);
+}
+
+.free {
+  background-color: rgb(54, 165, 54);
+}
+
+.redsquare {
+width: 40px;
+height: 40px;
+background: rgb(226, 70, 70);
+}
+
+.greensquare {
+width: 40px;
+height: 40px;
+background: rgb(54, 165, 54);
 }
 
 @keyframes App-logo-spin {

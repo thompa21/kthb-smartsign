@@ -16,9 +16,9 @@ function getRoomsData() {
     return axios.get(url);
 }
 
-function getRoomAvailability() {
+function getRoomAvailability(area_id) {
     var currenttimestamp = Math.floor(Date.now() /1000);
-    const url = apiUrl + 'mrbs/api/v1/noauth/roomsavailability/?timestamp=' + currenttimestamp + '&limit=1000&area_id=2';
+    const url = apiUrl + 'mrbs/api/v1/noauth/roomsavailability/?timestamp=' + currenttimestamp + '&limit=1000&area_id=' + area_id;
     return axios.get(url);
 }
 

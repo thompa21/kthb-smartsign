@@ -8,26 +8,38 @@ export default class EntryList extends Component {
   state = {
     entries: [],
     rooms: [],
-    currententries: []
+    grbentries: [],
+    lsentries: []
   }
 
   componentDidMount() {
-    this.getroomAvailability();
-    setInterval(this.getroomAvailability.bind(this), 10000)
+    this.getroomAvailability(2);
+    this.getroomAvailability(4);
+    //setInterval(this.getroomAvailability.bind(this), 10000)
   }
 
-  getroomAvailability() {
-    getRoomAvailability()
+  getroomAvailability(area_id) {
+    getRoomAvailability(area_id)
         .then((response) => {
           //filtrera lediga rum?
+          /*
           response.data.slice(0).forEach(element => {
             if(!element.availability){
               response.data.splice(response.data.indexOf(element), 1);
             }
           });
+          */
+        if (area_id == 2) {
           this.setState(() => ({
-            currententries: response.data
+            grbentries: response.data
           }));
+        }
+        if (area_id == 4) {
+          this.setState(() => ({
+            lsentries: response.data
+          }));
+        }
+          
         })
         .catch((error) => {
           this.setState(() => ({ rooms: error.response.data}));
@@ -44,32 +56,49 @@ export default class EntryList extends Component {
   }
 
   render() {
+    //Hämta aktuell och nästa timme
+    var d = new Date();
+    var currenthour = addZero(d.getHours());
+    d.setHours(d.getHours() + 1 );
+    var nextthour = addZero(d.getHours());
     return (
-      <div className="Smartsign-content-1">
-      { this.state.currententries.map(room => 
-          <div className="Smartsign-item"  key={room.room_name}>
+      <div className="Smartsign-content-wrapper">
+        <div class="Smartsign-header-3">
+          <div id="header3"><h3>Bokningsstatus / Bookingstatus ({currenthour} - {nextthour})</h3><h4>Grupprum / Group study rooms</h4></div>
+        </div>
+        <div id="grouproomentries">
+            <div id="grouprooms" className="Smartsign-content-1"> 
             {
-              room.room_number + ". " + room.room_name
+              this.state.grbentries.map(room => 
+              <div className={"Smartsign-item flex-container " + room.status} key={room.room_name}>
+                <div>
+                {
+                  room.room_number + ". " + room.room_name
+                }
+                </div>
+              </div>
+              )
             }
-          </div>
-          )
-        }
-        { this.state.rooms.map(room => 
-          <div key={room.id}>
+          </div>    
+        </div>
+        <div class="Smartsign-header-3">
+          <div id="header4"><h4>Lässtudio / Reading Studio</h4></div>
+        </div>
+        <div id="readingstudioentries">
+          <div id="grouprooms" className="Smartsign-content-1"> 
             {
-              room.room_number + ". "  + room.room_name
+              this.state.lsentries.map(room => 
+              <div className={"Smartsign-item flex-container " + room.status} key={room.room_name}>
+                <div>
+                {
+                  room.room_name
+                }
+                </div>
+              </div>
+              )
             }
-          </div>
-          )
-        }
-        { this.state.entries.map(entries => 
-          <div key={entries.id}>
-            {
-              entries.room_name + ". " + this.converttimestamp(entries.start_time) + ". " + entries.name + ". " + entries.status + ". " + entries.type + ". "
-            }
-          </div>
-          )
-        }
+          </div>   
+        </div>
       </div>
     )
   }

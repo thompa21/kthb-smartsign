@@ -27,9 +27,6 @@ class App extends Component {
             <h1>KTH Biblioteket</h1>
             <h1>KTH Library</h1>
           </div>
-          <div className="Smartsign-header-3">
-            <h3>TEST ({currenthour + " - " + nextthour})</h3>
-          </div>
         </header>
         {
           <Entries></Entries>
